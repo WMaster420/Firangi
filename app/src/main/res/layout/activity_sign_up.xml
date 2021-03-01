@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/signup1"
+    tools:context=".SignUp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:text="FIRANGI"
+        android:gravity="center"
+        android:textColor="#f5f5f5"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:hint="Name"
+        android:textColor="#050505"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:hint="Email"
+        android:layout_marginTop="25dp"
+        android:textColor="#050505"/>
+
+    <EditText
+        android:id="@+id/etPhoneNo"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:hint="Phone Number"
+        android:layout_marginTop="25dp"
+        android:textColor="#050505"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:hint="Password"
+        android:layout_marginTop="25dp"
+        android:textColor="#050505"/>
+
+    <Button
+        android:id="@+id/btSubmit"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:text="Submit"
+        android:textColor="#f5f5f5"/>
+
+
+</LinearLayout>
