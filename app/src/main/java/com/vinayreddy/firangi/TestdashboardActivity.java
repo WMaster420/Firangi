@@ -95,6 +95,8 @@ public class TestdashboardActivity extends AppCompatActivity {
     private void GameEnd() {
         Intent intent = new Intent(TestdashboardActivity.this, endAct.class);
         startActivity(intent);
+
+        //takes you to endAct to show the end screen after test completion
     }
 
     public void buttonControlE(){  //To enable the buttons
