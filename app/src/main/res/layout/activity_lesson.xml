@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.Firangi.NoActionBar"
+    tools:context=".ui.LessonActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/design_default_color_primary">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toolbar Title"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:id="@+id/lesson_activity_toolbar_title" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ProgressBar
+        android:id="@+id/lesson_activity_progressbar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+    <RelativeLayout
+        android:id="@+id/lesson_activity_layout"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_top">
+
+        <TextView
+            android:id="@+id/lesson_activity_french_word_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="French Word"
+            android:textSize="26sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"/>
+
+        <TextView
+            android:id="@+id/lesson_activity_english_word_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English Word"
+            android:textSize="22sp"
+            android:textColor="@color/design_default_color_primary"
+            android:textStyle="italic"
+            android:layout_marginHorizontal="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/lesson_activity_french_word_tv"
+            android:layout_marginTop="40dp"/>
+
+        <TextView
+            android:id="@+id/lesson_activity_french_sentence_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is an example sentence using the french word."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginHorizontal="20dp"
+            android:layout_below="@id/lesson_activity_english_word_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"/>
+
+        <TextView
+            android:id="@+id/lesson_activity_english_sentence_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is an example sentence using the english word."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginHorizontal="20dp"
+            android:layout_below="@id/lesson_activity_french_sentence_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="20dp">
+
+            <ImageButton
+                android:id="@+id/lesson_activity_previous_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_navigate_before_24"
+                android:backgroundTint="@color/white"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                />
+
+            <TextView
+                android:id="@+id/lesson_activity_page_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1/4"
+                android:textColor="@color/black"
+                android:layout_centerInParent="true"
+                />
+
+            <ImageButton
+                android:id="@+id/lesson_activity_next_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_baseline_navigate_next_24"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

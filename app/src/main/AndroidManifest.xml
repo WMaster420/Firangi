@@ -14,17 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Firangi">
-        <activity android:name=".endAct"></activity>
-        <activity android:name=".TestdashboardActivity" />
-        <activity android:name=".knowledgetst" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".SignUp">
+        <activity android:name=".ui.LessonActivity"
+            android:theme="@style/Theme.Firangi.NoActionBar"/>
+        <activity
+            android:name=".HomeScreenActivity"
+            android:label="@string/title_activity_lesson_selection_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".endAct" />
+        <activity android:name=".TestdashboardActivity" />
+        <activity android:name=".knowledgetst" />
+        <activity android:name=".SignUp"></activity>
     </application>
 
 </manifest>

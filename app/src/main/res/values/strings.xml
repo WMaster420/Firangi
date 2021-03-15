@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Firangi</string>
+    <string name="title_activity_lesson_selection_screen">MainActivity</string>
+    <string name="title_lessons">Lessons</string>
+    <string name="title_tournaments">Tournaments</string>
+    <string name="title_profile">Profile</string>
 </resources>
