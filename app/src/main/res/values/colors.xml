@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="btncolor">#f72f57</color>
+    <color name="correctans">#abdeab</color>
+    <color name="wrongans">#ff9999</color>
 </resources>

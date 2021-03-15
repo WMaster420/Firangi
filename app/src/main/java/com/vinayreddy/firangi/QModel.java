@@ -6,9 +6,14 @@ public class QModel {
     public String option2;
     public String option3;
     public String option4;
+    public String answer;
 
     public QModel(){
 
+    }
+
+    public QModel(String answer) {
+        this.answer = answer;
     }
 
     public QModel(String question, String option1, String option2, String option3, String option4) {
@@ -17,6 +22,14 @@ public class QModel {
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public String getQuestion() {

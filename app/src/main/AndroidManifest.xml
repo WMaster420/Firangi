@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Firangi">
-        <activity android:name=".TestdashboardActivity"></activity>
+        <activity android:name=".endAct"></activity>
+        <activity android:name=".TestdashboardActivity" />
         <activity android:name=".knowledgetst" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SignUp">
