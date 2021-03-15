@@ -119,6 +119,8 @@ public class TestdashboardActivity extends AppCompatActivity {
     }
 
     public void opt1click(View view) {
+        buttonControlD();                       //to prevent users from clicking multiple options
+        nxtbtn.setClickable(true);
         if(qModel.getOption1().equals(qModel.getAnswer())){
             cardViewO1.setCardBackgroundColor(getResources().getColor(R.color.correctans));
 
@@ -136,6 +138,8 @@ public class TestdashboardActivity extends AppCompatActivity {
     }
 
     public void opt2click(View view) {
+        buttonControlD();          //to prevent users from clicking multiple options
+        nxtbtn.setClickable(true);
         if(qModel.getOption2().equals(qModel.getAnswer())){
             cardViewO2.setCardBackgroundColor(getResources().getColor(R.color.correctans));
 
@@ -153,6 +157,8 @@ public class TestdashboardActivity extends AppCompatActivity {
     }
 
     public void opt3click(View view) {
+        buttonControlD();
+        nxtbtn.setClickable(true);
         if(qModel.getOption3().equals(qModel.getAnswer())){
             cardViewO3.setCardBackgroundColor(getResources().getColor(R.color.correctans));
 
@@ -170,6 +176,8 @@ public class TestdashboardActivity extends AppCompatActivity {
     }
 
     public void opt4click(View view) {
+        buttonControlD();
+        nxtbtn.setClickable(true);
         if(qModel.getOption4().equals(qModel.getAnswer())){
             cardViewO4.setCardBackgroundColor(getResources().getColor(R.color.correctans));
 
