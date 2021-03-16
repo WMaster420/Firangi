@@ -45,12 +45,13 @@ public class LessonAdapter extends BaseAdapter {
         TextView lessonName = view.findViewById(R.id.lesson_container_lesson_name);
         ImageView lessonIcon = view.findViewById(R.id.lesson_container_lesson_icon);
         lessonName.setText(lessonList.get(i).getLessonName());
-        if(lessonList.get(i).getLocked() != null && lessonList.get(i).getLocked())
+        lessonIcon.setImageResource(R.drawable.ic_baseline_navigate_next_24);
+        /*if(lessonList.get(i).getLocked() != null && lessonList.get(i).getLocked())
             lessonIcon.setImageResource(R.drawable.ic_baseline_lock_24);
         else if(lessonList.get(i).getCompleted() != null && lessonList.get(i).getCompleted())
             lessonIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
         else
-            lessonIcon.setImageResource(R.drawable.ic_baseline_navigate_next_24);
+            lessonIcon.setImageResource(R.drawable.ic_baseline_navigate_next_24);*/
 
         return view;
     }

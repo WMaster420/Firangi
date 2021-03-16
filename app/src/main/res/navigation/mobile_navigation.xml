@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_lessons"
-        android:name="com.vinayreddy.firangi.ui.lesson_selection.LessonSelectionFragment"
+        android:name="com.vinayreddy.firangi.ui.LessonSelectionFragment"
         android:label="@string/title_lessons"
         tools:layout="@layout/fragment_lesson_selection" />
 

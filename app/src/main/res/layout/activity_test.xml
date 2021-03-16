@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/design_default_color_primary">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toolbar Title"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:id="@+id/test_activity_toolbar_title" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ProgressBar
+        android:id="@+id/test_activity_progressbar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+    <RelativeLayout
+        android:id="@+id/test_activity_layout"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_top"
+        android:paddingHorizontal="30dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/test_activity_question_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            app:contentPadding="20dp">
+
+            <TextView
+                android:id="@+id/test_activity_question_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question"
+                android:textSize="22sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:layout_marginTop="60dp"
+                android:layout_gravity="center_horizontal"/>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/test_activity_option1_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentPadding="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="60dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            tools:ignore="MissingConstraints"
+            android:layout_below="@id/test_activity_question_cv">
+
+            <TextView
+                android:id="@+id/test_activity_option1_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Option 1"
+                android:textSize="20sp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="start"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/test_activity_option2_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentPadding="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            tools:ignore="MissingConstraints"
+            android:layout_below="@id/test_activity_option1_cv">
+
+            <TextView
+                android:id="@+id/test_activity_option2_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Option 2"
+                android:textSize="20sp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="start"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/test_activity_option3_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentPadding="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            tools:ignore="MissingConstraints"
+            android:layout_below="@id/test_activity_option2_cv">
+
+            <TextView
+                android:id="@+id/test_activity_option3_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Option 3"
+                android:textSize="20sp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="start"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/test_activity_option4_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentPadding="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            tools:ignore="MissingConstraints"
+            android:layout_below="@id/test_activity_option3_cv">
+
+            <TextView
+                android:id="@+id/test_activity_option4_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Option 4"
+                android:textSize="20sp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="start"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/test_activity_page_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1/4"
+                android:textColor="@color/black"
+                android:layout_centerInParent="true"
+                />
+
+            <ImageButton
+                android:id="@+id/test_activity_next_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_baseline_navigate_next_24"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

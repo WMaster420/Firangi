@@ -1,8 +1,9 @@
-package com.vinayreddy.firangi;
+package com.vinayreddy.firangi.ui;
 
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.vinayreddy.firangi.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -23,7 +24,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                 R.id.navigation_lessons, R.id.navigation_tournaments, R.id.navigation_profile)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
 

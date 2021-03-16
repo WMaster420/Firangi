@@ -1,3 +1,4 @@
+/*
 package com.vinayreddy.firangi;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,11 +10,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static com.vinayreddy.firangi.knowledgetst.QuestionList;
+import static com.vinayreddy.firangi.TestActivity.QuestionList;
 
 public class TestdashboardActivity extends AppCompatActivity {
 
@@ -29,7 +29,7 @@ public class TestdashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.quiz);
+        setContentView(R.layout.activity_test);
         links();
         Qlist=QuestionList;
         Collections.shuffle(QuestionList);
@@ -195,4 +195,4 @@ public class TestdashboardActivity extends AppCompatActivity {
             wrongAns(cardViewO4);
         }
     }
-}
+}*/

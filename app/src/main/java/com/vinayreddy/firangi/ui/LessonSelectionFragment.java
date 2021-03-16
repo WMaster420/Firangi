@@ -1,4 +1,4 @@
-package com.vinayreddy.firangi.ui.lesson_selection;
+package com.vinayreddy.firangi.ui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,12 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,9 +21,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.vinayreddy.firangi.R;
+import com.vinayreddy.firangi.TestActivity;
 import com.vinayreddy.firangi.misc.LessonAdapter;
 import com.vinayreddy.firangi.models.LessonModel;
-import com.vinayreddy.firangi.ui.LessonActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +34,7 @@ public class LessonSelectionFragment extends Fragment {
 
     ListView lessonListView;
     ProgressBar progressBar;
+    TextView toolbarTitle;
     static List<LessonModel> lessonList = new ArrayList<LessonModel>();
 
 
@@ -44,10 +43,10 @@ public class LessonSelectionFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_lesson_selection, container, false);
         lessonListView = root.findViewById(R.id.lesson_selection_listview);
         progressBar = root.findViewById(R.id.lesson_selection_progressbar);
+        toolbarTitle = root.findViewById(R.id.lesson_selection_toolbar_title);
 
-        //Get ActionBar to change the title of the ActionBar
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle("Beginner");
+        //Set the title of the Toolbar
+        toolbarTitle.setText("Beginner");
 
         new GetData().execute();
 
@@ -58,12 +57,19 @@ public class LessonSelectionFragment extends Fragment {
 
                 LessonModel lesson = (LessonModel) adapterView.getItemAtPosition(i);
 
-                //Open the lesson which the user clicked
-                //Pass lessonName as a reference to get lesson content from DB
-                Intent intent = new Intent(getActivity().getApplicationContext(), LessonActivity.class);
-                intent.putExtra("lessonName", lesson.getLessonName());
-                intent.putExtra("lessonNumber", lesson.getsNo());
-                startActivity(intent);
+                if(lesson.getLessonType().equals("test")){
+                    Intent intent = new Intent(getActivity().getApplicationContext(), TestActivity.class);
+                    intent.putExtra("lessonName", lesson.getLessonName());
+                    startActivity(intent);
+                }
+                else {
+                    //Open the lesson which the user clicked
+                    //Pass lessonName as a reference to get lesson content from DB
+                    Intent intent = new Intent(getActivity().getApplicationContext(), LessonActivity.class);
+                    intent.putExtra("lessonName", lesson.getLessonName());
+                    intent.putExtra("lessonNumber", lesson.getsNo());
+                    startActivity(intent);
+                }
             }
         });
 
