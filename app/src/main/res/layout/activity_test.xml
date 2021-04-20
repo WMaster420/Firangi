@@ -34,7 +34,7 @@
 
     <RelativeLayout
         android:id="@+id/test_activity_layout"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_top"
@@ -190,6 +190,104 @@
                 />
 
         </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/test_activity_result_layout"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_top">
+
+        <TextView
+            android:id="@+id/result_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Result"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            android:background="@drawable/purple_gradient"
+            android:gravity="center_horizontal"
+            android:paddingVertical="5dp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/numOfQuesTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number of Questions Attempted"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/purple_gradient"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/result_tv"
+            android:paddingVertical="5dp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/ques_attempted_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="32sp"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/numOfQuesTv"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/correctQuesTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number of Questions Correct"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/purple_gradient"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/ques_attempted_tv"
+            android:paddingVertical="5dp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/questions_correct_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="32sp"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/correctQuesTv"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/percentageTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Percentage"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/purple_gradient"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/questions_correct_tv"
+            android:paddingVertical="5dp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/percentage_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:textSize="32sp"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/percentageTv"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/result_back_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Back"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
 

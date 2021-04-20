@@ -2,13 +2,17 @@ package com.vinayreddy.firangi.models;
 
 public class LessonModel {
 
-    private String sNo;
+    private Integer sNo;
     private String lessonName;
     private boolean isTest;
-    String lessonType;
+    private String lessonType;
     //private Integer lessonLength;
     //private Boolean isLocked;
     //private Boolean isCompleted;
+
+    final static public String LESSON_TYPE_TEST = "test";
+    final static public String LESSON_TYPE_LESSON = "lesson";
+    final static public String LESSON_TYPE_FINAL_TEST = "final";
 
     public LessonModel(){
 
@@ -26,7 +30,7 @@ public class LessonModel {
         this.isTest = isTest;
     }*/
 
-    public LessonModel(String sNo, String lessonName, boolean isTest){
+    public LessonModel(Integer sNo, String lessonName, boolean isTest){
         this.sNo = sNo;
         this.lessonName = lessonName;
         this.isTest = isTest;
@@ -64,11 +68,11 @@ public class LessonModel {
         isCompleted = completed;
     }
 */
-    public String getsNo() {
+    public Integer getsNo() {
         return sNo;
     }
 
-    public void setsNo(String sNo) {
+    public void setsNo(Integer sNo) {
         this.sNo = sNo;
     }
 

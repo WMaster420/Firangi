@@ -1,22 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".ui.ProfileFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/portrait_placeholder"
+        android:scaleType="centerCrop"
+        />
+
+    <ImageButton
+        android:id="@+id/profile_edit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:background="#00ffffff"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical"
+        android:background="@drawable/white_gradient"
+        android:layout_alignBottom="@+id/profile_image"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/profile_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:id="@+id/profile_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="10dp"
+            />
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="210dp"
+        app:cardElevation="10dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.Cut">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/profile_image"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/french_fluency_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="French Fluency Progress"
+                    android:textSize="16sp"
+                    android:layout_centerHorizontal="true"/>
+
+                <ProgressBar
+                    android:id="@+id/french_fluency_progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="33"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:paddingHorizontal="40dp"
+                    android:layout_below="@id/french_fluency_progress"/>
+
+                <TextView
+                    android:id="@+id/course_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Course Progress"
+                    android:textSize="16sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/french_fluency_progress_bar"
+                    android:layout_marginTop="25dp"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/beginner_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentPadding="15dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    android:layout_below="@id/course_progress">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/profile_beginner_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Beginner"
+                            android:textSize="20sp"
+                            android:layout_gravity="start"/>
+
+                        <ImageView
+                            android:id="@+id/profile_beginner_check_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_check_circle_24_grey"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"/>
+
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/intermediate_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentPadding="15dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    android:layout_below="@id/beginner_card">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/profile_intermediate_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Intermediate"
+                            android:textSize="20sp"
+                            android:layout_gravity="start"/>
+
+                        <ImageView
+                            android:id="@+id/profile_intermediate_check_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_check_circle_24_grey"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"/>
+
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/expert_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentPadding="15dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    android:layout_below="@id/intermediate_card">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/profile_expert_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Expert"
+                            android:textSize="20sp"
+                            android:layout_gravity="start"/>
+
+                        <ImageView
+                            android:id="@+id/profile_expert_check_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_check_circle_24_grey"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"/>
+
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/current_course_tv_static"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Current Course"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"
+                    android:layout_below="@id/expert_card"
+                    android:layout_marginTop="20dp"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/profile_current_course_cv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:contentPadding="10dp"
+                    app:cardElevation="4dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardBackgroundColor="#B98AED"
+                    android:layout_below="@id/current_course_tv_static"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:id="@+id/profile_current_course_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Beginner"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/profile_change_course_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Change Course?"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:gravity="center_horizontal"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:layout_below="@id/profile_current_course_cv"
+                    android:layout_marginTop="10dp"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/profile_logout_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:contentPadding="10dp"
+                    app:cardElevation="4dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardBackgroundColor="#ED8A8A"
+                    android:layout_below="@id/profile_change_course_tv"
+                    android:layout_marginTop="40dp"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:id="@+id/logout_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Logout"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</RelativeLayout>

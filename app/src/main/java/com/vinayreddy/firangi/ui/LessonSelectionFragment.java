@@ -21,9 +21,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.vinayreddy.firangi.R;
-import com.vinayreddy.firangi.TestActivity;
 import com.vinayreddy.firangi.misc.LessonAdapter;
 import com.vinayreddy.firangi.models.LessonModel;
+import com.vinayreddy.firangi.models.UserModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,11 @@ public class LessonSelectionFragment extends Fragment {
     ProgressBar progressBar;
     TextView toolbarTitle;
     static List<LessonModel> lessonList = new ArrayList<LessonModel>();
+    static List<String> lessonIds = new ArrayList<>();
+    private UserModel instance;
+    FirebaseFirestore db;
+    LessonAdapter lessonAdapter;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,10 +50,14 @@ public class LessonSelectionFragment extends Fragment {
         progressBar = root.findViewById(R.id.lesson_selection_progressbar);
         toolbarTitle = root.findViewById(R.id.lesson_selection_toolbar_title);
 
-        //Set the title of the Toolbar
-        toolbarTitle.setText("Beginner");
+        db = FirebaseFirestore.getInstance();
+        instance = UserModel.getInstance();
 
-        new GetData().execute();
+        //Set the title of the Toolbar
+        toolbarTitle.setText(instance.getCurrentLevel());
+
+        //new GetData().execute();
+        getData();
 
 
         lessonListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,24 +66,67 @@ public class LessonSelectionFragment extends Fragment {
 
                 LessonModel lesson = (LessonModel) adapterView.getItemAtPosition(i);
 
-                if(lesson.getLessonType().equals("test")){
-                    Intent intent = new Intent(getActivity().getApplicationContext(), TestActivity.class);
-                    intent.putExtra("lessonName", lesson.getLessonName());
-                    startActivity(intent);
-                }
-                else {
-                    //Open the lesson which the user clicked
-                    //Pass lessonName as a reference to get lesson content from DB
-                    Intent intent = new Intent(getActivity().getApplicationContext(), LessonActivity.class);
-                    intent.putExtra("lessonName", lesson.getLessonName());
-                    intent.putExtra("lessonNumber", lesson.getsNo());
-                    startActivity(intent);
+                if(lesson.getsNo() <= instance.getCurrentLesson()){
+                    if(lesson.getLessonType().equals(LessonModel.LESSON_TYPE_TEST)){
+                        Intent intent = new Intent(getActivity().getApplicationContext(), TestActivity.class);
+                        intent.putExtra("lessonName", lesson.getLessonName());
+                        intent.putExtra("lessonNumber", lesson.getsNo());
+                        intent.putExtra("lessonId", lessonIds.get(i));
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                    else if(lesson.getLessonType().equals(LessonModel.LESSON_TYPE_FINAL_TEST)){
+                        Intent intent = new Intent(getActivity().getApplicationContext(), TestActivity.class);
+                        intent.putExtra("lessonName", lesson.getLessonName());
+                        intent.putExtra("lessonNumber", lesson.getsNo());
+                        intent.putExtra("lessonId", lessonIds.get(i));
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                    else {
+                        //Open the lesson which the user clicked
+                        //Pass lessonName as a reference to get lesson content from DB
+                        Intent intent = new Intent(getActivity().getApplicationContext(), LessonActivity.class);
+                        intent.putExtra("lessonName", lesson.getLessonName());
+                        intent.putExtra("lessonNumber", lesson.getsNo());
+                        intent.putExtra("lessonId", lessonIds.get(i));
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
                 }
             }
         });
 
 
         return root;
+    }
+
+    void getData() {
+        lessonList.clear();
+        db.collection("Courses")
+                .document(instance.getCurrentLevel())
+                .collection("Lessons")
+                .orderBy("sNo")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                lessonList.add(document.toObject(LessonModel.class));
+                                lessonIds.add(document.getId());
+                            }
+
+                            lessonAdapter = new LessonAdapter(getContext(), lessonList);
+                            lessonListView.setAdapter(lessonAdapter);
+                            lessonAdapter.notifyDataSetChanged();
+                        }
+                        if(task.isCanceled())
+                            Log.e("onCanceled", task.getException().toString());
+
+                    }
+                });
+
     }
 
     private class GetData extends AsyncTask<Void, Void, Void>{
@@ -86,7 +138,7 @@ public class LessonSelectionFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             lessonList.clear();
             db.collection("Courses")
-                    .document("Beginner")
+                    .document(instance.getCurrentLevel())
                     .collection("Lessons")
                     .orderBy("sNo")
                     .get()

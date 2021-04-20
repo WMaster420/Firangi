@@ -35,7 +35,8 @@
         android:layout_height="match_parent"
         android:divider="@null"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/toolbar_top"/>
+        android:layout_below="@id/toolbar_top"
+        android:paddingBottom="60dp"/>
 
     <ProgressBar
         android:id="@+id/lesson_selection_progressbar"

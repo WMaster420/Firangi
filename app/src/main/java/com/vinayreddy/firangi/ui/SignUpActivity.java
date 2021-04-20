@@ -18,7 +18,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.vinayreddy.firangi.R;
+import com.vinayreddy.firangi.models.UserModel;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -32,6 +34,8 @@ public class SignUpActivity extends AppCompatActivity {
     TextView signin_btn;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private UserModel instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class SignUpActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        instance = UserModel.getInstance();
 
         username_til = findViewById(R.id.signup_username_til);
         email_til = findViewById(R.id.signup_email_til);
@@ -63,6 +69,10 @@ public class SignUpActivity extends AppCompatActivity {
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                username_til.setError(null);
+                email_til.setError(null);
+                password_til.setError(null);
+
                 if(username_tie.getText().toString().isEmpty()){
                     username_til.setError("Username cannot be empty!");
                 }
@@ -81,10 +91,39 @@ public class SignUpActivity extends AppCompatActivity {
                             .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()){
+                                    if(task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        Intent intent = new Intent(SignUpActivity.this, HomeScreenActivity.class);
-                                        startActivity(intent);
+                                        instance.setUserId(user.getUid());
+                                        instance.setUserName(username_tie.getText().toString());
+                                        instance.setUserEmail(email_tie.getText().toString());
+                                        instance.setCurrentLevel(UserModel.LEVEL_BEGINNER);
+                                        instance.setCurrentLesson(1);
+                                        instance.setBeginnerCompleted(false);
+                                        instance.setIntermediateCompleted(false);
+                                        instance.setExpertCompleted(false);
+                                        instance.setImageUrl(null);
+
+                                        db.collection("Users")
+                                                .document(user.getUid())
+                                                .set(new UserModel(
+                                                        instance.getUserId(),
+                                                        instance.getUserName(),
+                                                        instance.getImageUrl(),
+                                                        instance.getUserEmail(),
+                                                        instance.getCurrentLevel(),
+                                                        instance.getCurrentLesson(),
+                                                        instance.getBeginnerCompleted(),
+                                                        instance.getIntermediateCompleted(),
+                                                        instance.getExpertCompleted())
+                                                )
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Intent intent = new Intent(SignUpActivity.this, CourseSelectionActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                });
                                     }
                                     else {
                                         Log.e("Auth Exception", task.getException().toString());
@@ -98,8 +137,5 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        }
-
-
-
     }
+}

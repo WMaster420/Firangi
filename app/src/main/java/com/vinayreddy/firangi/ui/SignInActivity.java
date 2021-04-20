@@ -18,7 +18,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.vinayreddy.firangi.R;
+import com.vinayreddy.firangi.models.UserModel;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -31,15 +34,35 @@ public class SignInActivity extends AppCompatActivity {
     TextView forgot_password_btn;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private UserModel instance;
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        instance = UserModel.getInstance();
+
         if(currentUser != null){
-            Intent intent = new Intent(SignInActivity.this, HomeScreenActivity.class);
-            startActivity(intent);
+            db.collection("Users")
+                    .document(currentUser.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                DocumentSnapshot doc = task.getResult();
+                                if(doc.exists()){
+                                    instance.setInstance(doc.toObject(UserModel.class));
+                                    Intent intent = new Intent(SignInActivity.this, HomeScreenActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        }
+                    });
         }
     }
 
@@ -72,6 +95,8 @@ public class SignInActivity extends AppCompatActivity {
         signin_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                email_til.setError(null);
+                password_til.setError(null);
 
                 if(email_tie.getText().toString().isEmpty()){
                     email_til.setError("Please enter a valid Email Id!");
@@ -89,8 +114,24 @@ public class SignInActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        Intent intent = new Intent(SignInActivity.this, HomeScreenActivity.class);
-                                        startActivity(intent);
+
+                                        db.collection("Users")
+                                                .document(user.getUid())
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if(task.isSuccessful()){
+                                                            DocumentSnapshot doc = task.getResult();
+                                                            if(doc.exists()){
+                                                                instance = doc.toObject(UserModel.class);
+                                                                Intent intent = new Intent(SignInActivity.this, HomeScreenActivity.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                        }
+                                                    }
+                                                });
                                     }
                                     else {
                                         Log.e("Auth Exception", task.getException().toString());

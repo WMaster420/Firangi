@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.EditProfileActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/edit_profile_image_card"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="125dp"
+        app:strokeWidth="5dp"
+        app:cardElevation="5dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/edit_profile_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/portrait_placeholder"
+            android:scaleType="centerCrop"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageButton
+        android:id="@+id/edit_profile_camera_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_baseline_photo_camera_24"
+        android:background="@color/white"
+        android:scaleType="centerCrop"
+        android:layout_alignBottom="@id/edit_profile_image_card"
+        android:layout_alignEnd="@id/edit_profile_image_card"
+        android:layout_alignRight="@id/edit_profile_image_card"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_profile_username_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+        android:layout_below="@id/edit_profile_image_card"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="40dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_username_tie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:hint="Username" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_profile_email_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+        android:layout_below="@id/edit_profile_username_til"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="10dp"
+        android:focusable="false"
+        android:clickable="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_email_tie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:hint="Email"
+            android:focusable="false"
+            android:clickable="false"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/edit_profile_save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_marginHorizontal="10dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
