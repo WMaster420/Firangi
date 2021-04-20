@@ -124,7 +124,7 @@ public class SignInActivity extends AppCompatActivity {
                                                         if(task.isSuccessful()){
                                                             DocumentSnapshot doc = task.getResult();
                                                             if(doc.exists()){
-                                                                instance = doc.toObject(UserModel.class);
+                                                                instance.setInstance(doc.toObject(UserModel.class));
                                                                 Intent intent = new Intent(SignInActivity.this, HomeScreenActivity.class);
                                                                 startActivity(intent);
                                                                 finish();

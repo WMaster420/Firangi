@@ -299,14 +299,14 @@ public class TestActivity extends AppCompatActivity {
             cv.setCardBackgroundColor(getResources().getColor(R.color.wrongans));
         }
 
-        option1_tv.setClickable(false);
-        option1_tv.setFocusable(false);
-        option2_tv.setClickable(false);
-        option2_tv.setFocusable(false);
-        option3_tv.setClickable(false);
-        option3_tv.setFocusable(false);
-        option4_tv.setClickable(false);
-        option4_tv.setFocusable(false);
+        option1_cv.setClickable(false);
+        option1_cv.setFocusable(false);
+        option2_cv.setClickable(false);
+        option2_cv.setFocusable(false);
+        option3_cv.setClickable(false);
+        option3_cv.setFocusable(false);
+        option4_cv.setClickable(false);
+        option4_cv.setFocusable(false);
     }
 
     private void NextQuestion(){
@@ -315,14 +315,14 @@ public class TestActivity extends AppCompatActivity {
         option3_cv.setCardBackgroundColor(getResources().getColor(R.color.white));
         option4_cv.setCardBackgroundColor(getResources().getColor(R.color.white));
 
-        option1_tv.setClickable(true);
-        option1_tv.setFocusable(true);
-        option2_tv.setClickable(true);
-        option2_tv.setFocusable(true);
-        option3_tv.setClickable(true);
-        option3_tv.setFocusable(true);
-        option4_tv.setClickable(true);
-        option4_tv.setFocusable(true);
+        option1_cv.setClickable(true);
+        option1_cv.setFocusable(true);
+        option2_cv.setClickable(true);
+        option2_cv.setFocusable(true);
+        option3_cv.setClickable(true);
+        option3_cv.setFocusable(true);
+        option4_cv.setClickable(true);
+        option4_cv.setFocusable(true);
         DisplayData();
     }
 }
