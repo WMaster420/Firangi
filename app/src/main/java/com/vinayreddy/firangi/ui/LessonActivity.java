@@ -40,6 +40,7 @@ public class LessonActivity extends AppCompatActivity {
     private int lessonLength;
     private int currentIndex = 0;
     private String pageIndex;
+    Boolean isBasics = false;
 
     RelativeLayout activityLayout;
     ProgressBar progressBar;
@@ -77,6 +78,8 @@ public class LessonActivity extends AppCompatActivity {
             lessonName = intentThatStartedThisActivity.getStringExtra("lessonName");
         if(intentThatStartedThisActivity.hasExtra("lessonId"))
             lessonId = intentThatStartedThisActivity.getStringExtra("lessonId");
+        if(intentThatStartedThisActivity.hasExtra("isBasics"))
+            isBasics = intentThatStartedThisActivity.getBooleanExtra("isBasics", false);
 
         toolbarTitle.setText(lessonName);
 
@@ -85,89 +88,62 @@ public class LessonActivity extends AppCompatActivity {
         progressBar.setEnabled(true);
 
         contentList.clear();
-        db.collection("Courses")
-                .document(instance.getCurrentLevel())
-                .collection("Lessons")
-                .document(lessonId)
-                .collection("Content")
-                .orderBy("sNo")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                contentList.add(document.toObject(LessonContentModel.class));
+        if(isBasics){
+            db.collection("Courses")
+                    .document(UserModel.LEVEL_BASICS)
+                    .collection("Lessons")
+                    .document(lessonId)
+                    .collection("Content")
+                    .orderBy("sNo")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                    //Log.d(TAG, document.getId() + " => " + document.getData());
+                                    contentList.add(document.toObject(LessonContentModel.class));
+                                }
+                                lessonLength = contentList.size();
+                                progressBar.setVisibility(View.GONE);
+                                activityLayout.setVisibility(View.VISIBLE);
+                                progressBar.setEnabled(false);
+                                DisplayData();
+                                //LessonActivity.this.notifyAll();//
+                            } else {
+                                Log.e("Error: ", task.getException().toString());
                             }
-                            lessonLength = contentList.size();
-                            progressBar.setVisibility(View.GONE);
-                            activityLayout.setVisibility(View.VISIBLE);
-                            progressBar.setEnabled(false);
-                            DisplayData();
-                            //LessonActivity.this.notifyAll();//
-                        } else {
-                            Log.e("Error: ", task.getException().toString());
                         }
-                    }
-                });
-        /*db.collection("Users")
-                .document(instance.getCurrentLevel())
-                .collection("Lessons")
-                .document(lessonId)
-                .collection("Content")
-                .orderBy("sNo")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                contentList.add(document.toObject(LessonContentModel.class));
+                    });
+        }
+        else {
+            db.collection("Courses")
+                    .document(instance.getCurrentLevel())
+                    .collection("Lessons")
+                    .document(lessonId)
+                    .collection("Content")
+                    .orderBy("sNo")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                    //Log.d(TAG, document.getId() + " => " + document.getData());
+                                    contentList.add(document.toObject(LessonContentModel.class));
+                                }
+                                lessonLength = contentList.size();
+                                progressBar.setVisibility(View.GONE);
+                                activityLayout.setVisibility(View.VISIBLE);
+                                progressBar.setEnabled(false);
+                                DisplayData();
+                                //LessonActivity.this.notifyAll();//
+                            } else {
+                                Log.e("Error: ", task.getException().toString());
                             }
-                            lessonLength = contentList.size();
-                            progressBar.setVisibility(View.GONE);
-                            activityLayout.setVisibility(View.VISIBLE);
-                            progressBar.setEnabled(false);
-                            DisplayData();
-                            //LessonActivity.this.notifyAll();//
-                        } else {
-                            Log.e("Error: ", task.getException().toString());
                         }
-                    }
-                });*/
-
-
-
-
-
-        /*db.collection("Courses")
-                .document(instance.getCurrentLevel())
-                .collection("Lessons")
-                .document("Lesson_" + lessonNumber)
-                .collection("Content")
-                .orderBy("sNo")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                contentList.add(document.toObject(LessonContentModel.class));
-                            }
-                            lessonLength = contentList.size();
-                            progressBar.setVisibility(View.GONE);
-                            activityLayout.setVisibility(View.VISIBLE);
-                            progressBar.setEnabled(false);
-                            DisplayData();
-                            //LessonActivity.this.notifyAll();//
-                        } else {
-                            Log.e("Error: ", task.getException().toString());
-                        }
-                    }
-                });*/
+                    });
+        }
 
 
         previousBtn.setOnClickListener(new View.OnClickListener() {
@@ -195,19 +171,26 @@ public class LessonActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(instance.getCurrentLesson() < lessonNumber + 1) {
-            instance.setCurrentLesson(lessonNumber + 1);
-            db.collection("Users")
-                    .document(instance.getUserId())
-                    .update("currentLesson", instance.getCurrentLesson())
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Intent intent = new Intent(getApplicationContext(), HomeScreenActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
+        if(isBasics){
+            Intent intent = new Intent(getApplicationContext(), HomeScreenActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            if (instance.getCurrentLesson() < lessonNumber + 1) {
+                instance.setCurrentLesson(lessonNumber + 1);
+                db.collection("Users")
+                        .document(instance.getUserId())
+                        .update("currentLesson", instance.getCurrentLesson())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent intent = new Intent(getApplicationContext(), HomeScreenActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+            }
         }
     }
 

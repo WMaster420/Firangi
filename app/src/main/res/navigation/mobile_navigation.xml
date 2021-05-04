@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_tournaments"
-        android:name="com.vinayreddy.firangi.ui.tournaments.TournamentsFragment"
+        android:name="com.vinayreddy.firangi.ui.TournamentsFragment"
         android:label="@string/title_tournaments"
         tools:layout="@layout/fragment_tournaments" />
 

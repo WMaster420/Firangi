@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -44,6 +46,9 @@ public class TestActivity extends AppCompatActivity {
     private String pageIndex;
     private int numOfCorrectQuestions = 0;
     private Boolean isFinalTest = false;
+    private Boolean isTournament = false;
+    String perc;
+    CountDownTimer timer;
 
     TextView question_tv;
     TextView option1_tv;
@@ -57,6 +62,7 @@ public class TestActivity extends AppCompatActivity {
     TextView pageNumber;
     ImageButton nextBtn;
     TextView toolbarTitle;
+    TextView timer_tv;
 
     RelativeLayout questionsLayout;
     RelativeLayout resultsLayout;
@@ -81,9 +87,37 @@ public class TestActivity extends AppCompatActivity {
         if(intentThatStartedThisActivity.hasExtra("lessonId"))
             lessonId = intentThatStartedThisActivity.getStringExtra("lessonId");
 
-        if(lessonName.contains("Course Evaluation Test")){
-            isFinalTest = true;
+        if(intentThatStartedThisActivity.hasExtra("isTournament"))
+            isTournament = intentThatStartedThisActivity.getBooleanExtra("isTournament", false);
+
+        if(!isTournament) {
+            if (lessonName.contains("Course Evaluation Test")) {
+                isFinalTest = true;
+            }
         }
+
+        timer = new CountDownTimer(10000, 1000) {
+
+            @Override
+            public void onTick(long millis) {
+                int seconds = (int) (millis / 1000) % 60;
+                int minutes = (int) ((millis / (1000 * 60)) % 60);
+                int hours = (int) ((millis / (1000 * 60 * 60)) % 24);
+                timer_tv.setText(String.valueOf(seconds));
+            }
+
+            @Override
+            public void onFinish() {
+                timer_tv.setText("0");
+                if(currentIndex < questionList.size() - 1){
+                    currentIndex++;
+                    NextQuestion();
+                }
+                else if(currentIndex == questionList.size() - 1){
+                    ShowResults();
+                }
+            }
+        };
 
         question_tv = findViewById(R.id.test_activity_question_tv);
         option1_tv = findViewById(R.id.test_activity_option1_tv);
@@ -97,6 +131,7 @@ public class TestActivity extends AppCompatActivity {
         pageNumber = findViewById(R.id.test_activity_page_number_tv);
         nextBtn = findViewById(R.id.test_activity_next_button);
         toolbarTitle = findViewById(R.id.test_activity_toolbar_title);
+        timer_tv = findViewById(R.id.test_activity_timer);
 
         questionsLayout = findViewById(R.id.test_activity_layout);
         resultsLayout = findViewById(R.id.test_activity_result_layout);
@@ -109,36 +144,66 @@ public class TestActivity extends AppCompatActivity {
 
         questionsLayout.setVisibility(View.VISIBLE);
         resultsLayout.setVisibility(View.GONE);
+        timer_tv.setVisibility(View.GONE);
 
         //String testNumber = lessonName.split("Test")[1].trim();
 
         questionList.clear();
-        db.collection("Courses")
-                .document(instance.getCurrentLevel())
-                .collection("Lessons")
-                .document(lessonId)
-                .collection("Content")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                questionList.add(document.toObject(TestContentModel.class));
-                            }
-                            testLength = questionList.size();
-                            Collections.shuffle(questionList);
-                            DisplayData();
+        if(isTournament){
+            timer_tv.setVisibility(View.VISIBLE);
+            db.collection("Tournaments")
+                    .document("Tournament 1")
+                    .collection("Questions")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                    //Log.d(TAG, document.getId() + " => " + document.getData());
+                                    questionList.add(document.toObject(TestContentModel.class));
+                                }
+                                testLength = questionList.size();
+                                Collections.shuffle(questionList);
+                                DisplayData();
                             /*progressBar.setVisibility(View.GONE);
                             activityLayout.setVisibility(View.VISIBLE);
                             progressBar.setEnabled(false);*/
-                            //LessonActivity.this.notifyAll();//
-                        } else {
-                            Log.e("Error: ", task.getException().toString());
+                                //LessonActivity.this.notifyAll();//
+                            } else {
+                                Log.e("Error: ", task.getException().toString());
+                            }
                         }
-                    }
-                });
+                    });
+        }
+        else {
+            db.collection("Courses")
+                    .document(instance.getCurrentLevel())
+                    .collection("Lessons")
+                    .document(lessonId)
+                    .collection("Content")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                    //Log.d(TAG, document.getId() + " => " + document.getData());
+                                    questionList.add(document.toObject(TestContentModel.class));
+                                }
+                                testLength = questionList.size();
+                                Collections.shuffle(questionList);
+                                DisplayData();
+                            /*progressBar.setVisibility(View.GONE);
+                            activityLayout.setVisibility(View.VISIBLE);
+                            progressBar.setEnabled(false);*/
+                                //LessonActivity.this.notifyAll();//
+                            } else {
+                                Log.e("Error: ", task.getException().toString());
+                            }
+                        }
+                    });
+        }
 
         option1_cv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,22 +246,75 @@ public class TestActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(instance.getCurrentLesson() < lessonNumber + 1) {
+                if(isTournament) {
+                    instance.setTournamentScore(perc);
+
+                    db.collection("Tournaments")
+                            .document("Tournament 1")
+                            .collection("Participants")
+                            .document(instance.getUserId())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        if(task.getResult().exists()){
+                                            db.collection("Tournaments")
+                                                    .document("Tournament 1")
+                                                    .collection("Participants")
+                                                    .document(instance.getUserId())
+                                                    .update("userName", instance.getUserName(),
+                                                            "tournamentScore", instance.getTournamentScore());
+                                        }
+                                        else {
+                                            db.collection("Tournaments")
+                                                    .document("Tournament 1")
+                                                    .collection("Participants")
+                                                    .document(instance.getUserId())
+                                                    .set(instance);
+
+                                        }
+                                    }
+                                }
+                            });
+
+                    db.collection("Users")
+                            .document(instance.getUserId())
+                            .update("tournamentScore", instance.getTournamentScore())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Intent intent = new Intent(getApplicationContext(), HomeScreenActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                } else if(instance.getCurrentLesson() < lessonNumber + 1) {
                     instance.setCurrentLesson(lessonNumber + 1);
                     if(isFinalTest) {
-                        if(instance.getCurrentLevel().equals(UserModel.LEVEL_BEGINNER)){
-                            instance.setBeginnerCompleted(true);
-                        }else if(instance.getCurrentLevel().equals(UserModel.LEVEL_INTERMEDIATE)) {
-                            instance.setIntermediateCompleted(true);
-                        }else if(instance.getCurrentLevel().equals(UserModel.LEVEL_EXPERT)) {
-                            instance.setExpertCompleted(true);
+                        switch (instance.getCurrentLevel()) {
+                            case UserModel.LEVEL_BEGINNER:
+                                instance.setBeginnerCompleted(true);
+                                instance.setBeginnerScore(perc);
+                                break;
+                            case UserModel.LEVEL_INTERMEDIATE:
+                                instance.setIntermediateCompleted(true);
+                                instance.setIntermediateScore(perc);
+                                break;
+                            case UserModel.LEVEL_EXPERT:
+                                instance.setExpertCompleted(true);
+                                instance.setExpertScore(perc);
+                                break;
                         }
                         db.collection("Users")
                                 .document(instance.getUserId())
                                 .update("currentLesson", instance.getCurrentLesson(),
                                         "beginnerCompleted", instance.getBeginnerCompleted(),
                                         "intermediateCompleted", instance.getIntermediateCompleted(),
-                                        "expertCompleted", instance.getExpertCompleted())
+                                        "expertCompleted", instance.getExpertCompleted(),
+                                        "beginnerScore", instance.getBeginnerScore(),
+                                        "intermediateScore", instance.getIntermediateScore(),
+                                        "expertScore", instance.getExpertScore())
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -241,7 +359,7 @@ public class TestActivity extends AppCompatActivity {
         double percent = (double) numOfCorrectQuestions / testLength;
         percent *= 100;
         DecimalFormat precision = new DecimalFormat("0.00");
-        String perc = (precision.format(percent)) + "%";
+        perc = (precision.format(percent)) + "%";
 
         questionsAttempted.setText(String.valueOf(testLength));
         questionsCorrect.setText(String.valueOf(numOfCorrectQuestions));
@@ -255,6 +373,7 @@ public class TestActivity extends AppCompatActivity {
         question_tv.setText(questionList.get(currentIndex).getQuestion());
         pageIndex = currentIndex + 1 + "/" + testLength;
         pageNumber.setText(pageIndex);
+        timer.cancel();
 
         switch(random){
             case 1:
@@ -288,6 +407,9 @@ public class TestActivity extends AppCompatActivity {
                 option4_tv.setText(questionList.get(currentIndex).getWrongAnswer3());
                 break;
         }
+
+        timer.start();
+
     }
 
     private void EvaluateQuestion(TextView tv, CardView cv){

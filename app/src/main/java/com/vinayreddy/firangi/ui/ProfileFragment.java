@@ -39,6 +39,11 @@ public class ProfileFragment extends Fragment {
     TextView currentCourse;
     TextView changeCourse;
     CardView logoutBtn;
+    CardView feedbackBtn;
+    CardView basicsBtn;
+    TextView beginnerScore;
+    TextView intermediateScore;
+    TextView expertScore;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +64,11 @@ public class ProfileFragment extends Fragment {
         currentCourse = root.findViewById(R.id.profile_current_course_tv);
         changeCourse = root.findViewById(R.id.profile_change_course_tv);
         logoutBtn = root.findViewById(R.id.profile_logout_btn);
+        basicsBtn = root.findViewById(R.id.profile_basics_cv);
+        feedbackBtn = root.findViewById(R.id.profile_feedback_btn);
+        beginnerScore = root.findViewById(R.id.profile_beginner_score_tv);
+        intermediateScore = root.findViewById(R.id.profile_intermediate_score_tv);
+        expertScore = root.findViewById(R.id.profile_expert_score_tv);
 
         username.setText(instance.getUserName());
         email.setText(instance.getUserEmail());
@@ -68,6 +78,10 @@ public class ProfileFragment extends Fragment {
                 .centerCrop()
                 .placeholder(R.drawable.portrait_placeholder)
                 .into(profileImage);
+
+        beginnerScore.setText(instance.getBeginnerScore());
+        intermediateScore.setText(instance.getIntermediateScore());
+        expertScore.setText(instance.getExpertScore());
 
         if (instance.getBeginnerCompleted()) {
             beginnerIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
@@ -117,6 +131,24 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity().getApplicationContext(), SignInActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        feedbackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), FeedbackActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        basicsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), BasicsActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }

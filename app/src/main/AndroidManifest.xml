@@ -14,9 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Firangi">
-        <activity android:name=".ui.CourseSelectionActivity"
+        <activity android:name=".ui.SplashScreenActivity"
             android:theme="@style/Theme.Firangi.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.BasicsActivity"
+            android:theme="@style/Theme.Firangi.NoActionBar" />
+        <activity
+            android:name=".ui.LeaderboardsActivity"
+            android:theme="@style/Theme.Firangi.NoActionBar" />
+        <activity
+            android:name=".ui.FeedbackActivity"
+            android:theme="@style/Theme.Firangi.NoActionBar" />
+        <activity
+            android:name=".ui.CourseSelectionActivity"
+            android:theme="@style/Theme.Firangi.NoActionBar" />
         <activity android:name=".ui.EditProfileActivity" />
         <activity
             android:name=".ui.LessonActivity"
@@ -28,13 +45,7 @@
             android:name=".ui.TestActivity"
             android:theme="@style/Theme.Firangi.NoActionBar" />
         <activity android:name=".ui.SignUpActivity" />
-        <activity android:name=".ui.SignInActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.SignInActivity"/>
     </application>
 
 </manifest>

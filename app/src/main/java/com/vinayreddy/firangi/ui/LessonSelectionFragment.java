@@ -117,7 +117,7 @@ public class LessonSelectionFragment extends Fragment {
                                 lessonIds.add(document.getId());
                             }
 
-                            lessonAdapter = new LessonAdapter(getContext(), lessonList);
+                            lessonAdapter = new LessonAdapter(getContext(), lessonList, false);
                             lessonListView.setAdapter(lessonAdapter);
                             lessonAdapter.notifyDataSetChanged();
                         }
@@ -129,50 +129,4 @@ public class LessonSelectionFragment extends Fragment {
 
     }
 
-    private class GetData extends AsyncTask<Void, Void, Void>{
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        LessonAdapter lessonAdapter;
-
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            lessonList.clear();
-            db.collection("Courses")
-                    .document(instance.getCurrentLevel())
-                    .collection("Lessons")
-                    .orderBy("sNo")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if(task.isSuccessful()){
-                                for(QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
-                                    lessonList.add(document.toObject(LessonModel.class));
-                                lessonAdapter.notifyDataSetChanged();
-                            }
-                            if(task.isCanceled())
-                                Log.e("onCanceled", task.getException().toString());
-
-                        }
-                    });
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
-            lessonListView.setVisibility(View.GONE);
-            progressBar.setEnabled(true);
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            progressBar.setVisibility(View.GONE);
-            lessonListView.setVisibility(View.VISIBLE);
-            progressBar.setEnabled(false);
-
-            lessonAdapter = new LessonAdapter(getContext(), lessonList);
-            lessonListView.setAdapter(lessonAdapter);
-        }
-    }
 }

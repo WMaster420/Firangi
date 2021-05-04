@@ -102,6 +102,11 @@ public class SignUpActivity extends AppCompatActivity {
                                         instance.setIntermediateCompleted(false);
                                         instance.setExpertCompleted(false);
                                         instance.setImageUrl(null);
+                                        instance.setBeginnerScore("0%");
+                                        instance.setIntermediateScore("0%");
+                                        instance.setExpertScore("0%");
+                                        instance.setTournamentScore("0%");
+
 
                                         db.collection("Users")
                                                 .document(user.getUid())
@@ -114,7 +119,11 @@ public class SignUpActivity extends AppCompatActivity {
                                                         instance.getCurrentLesson(),
                                                         instance.getBeginnerCompleted(),
                                                         instance.getIntermediateCompleted(),
-                                                        instance.getExpertCompleted())
+                                                        instance.getExpertCompleted(),
+                                                        instance.getBeginnerScore(),
+                                                        instance.getIntermediateScore(),
+                                                        instance.getExpertScore(),
+                                                        instance.getTournamentScore())
                                                 )
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override

@@ -34,11 +34,27 @@
 
     <RelativeLayout
         android:id="@+id/test_activity_layout"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_top"
         android:paddingHorizontal="30dp">
+
+        <TextView
+            android:visibility="visible"
+            android:id="@+id/test_activity_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:background="@drawable/timer_bg"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/test_activity_question_cv"
@@ -46,7 +62,8 @@
             android:layout_height="wrap_content"
             app:cardElevation="4dp"
             app:cardCornerRadius="8dp"
-            app:contentPadding="20dp">
+            app:contentPadding="20dp"
+            android:layout_below="@id/test_activity_timer">
 
             <TextView
                 android:id="@+id/test_activity_question_tv"
@@ -195,7 +212,7 @@
 
     <RelativeLayout
         android:id="@+id/test_activity_result_layout"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_top">

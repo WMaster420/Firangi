@@ -10,9 +10,14 @@ public class UserModel {
     private Boolean isBeginnerCompleted;
     private Boolean isIntermediateCompleted;
     private Boolean isExpertCompleted;
+    private String beginnerScore;
+    private String intermediateScore;
+    private String expertScore;
+    private String tournamentScore;
 
     private static UserModel instance;
 
+    final static public String LEVEL_BASICS = "Basics";
     final static public String LEVEL_BEGINNER = "Beginner";
     final static public String LEVEL_INTERMEDIATE = "Intermediate";
     final static public String LEVEL_EXPERT = "Expert";
@@ -21,7 +26,8 @@ public class UserModel {
 
     public UserModel(String userId, String userName, String imageUrl, String userEmail, String currentLevel,
                      Integer currentLesson, Boolean isBeginnerCompleted, Boolean isIntermediateCompleted,
-                     Boolean isExpertCompleted) {
+                     Boolean isExpertCompleted, String beginnerScore, String intermediateScore, String expertScore,
+                     String tournamentScore) {
         this.userId = userId;
         this.userName = userName;
         this.imageUrl = imageUrl;
@@ -31,6 +37,10 @@ public class UserModel {
         this.isBeginnerCompleted = isBeginnerCompleted;
         this.isIntermediateCompleted = isIntermediateCompleted;
         this.isExpertCompleted = isExpertCompleted;
+        this.beginnerScore = beginnerScore;
+        this.intermediateScore = intermediateScore;
+        this.expertScore = expertScore;
+        this.tournamentScore = tournamentScore;
     }
 
     public static UserModel getInstance() {
@@ -114,5 +124,37 @@ public class UserModel {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getBeginnerScore() {
+        return beginnerScore;
+    }
+
+    public void setBeginnerScore(String beginnerScore) {
+        this.beginnerScore = beginnerScore;
+    }
+
+    public String getIntermediateScore() {
+        return intermediateScore;
+    }
+
+    public void setIntermediateScore(String intermediateScore) {
+        this.intermediateScore = intermediateScore;
+    }
+
+    public String getExpertScore() {
+        return expertScore;
+    }
+
+    public void setExpertScore(String expertScore) {
+        this.expertScore = expertScore;
+    }
+
+    public String getTournamentScore() {
+        return tournamentScore;
+    }
+
+    public void setTournamentScore(String tournamentScore) {
+        this.tournamentScore = tournamentScore;
     }
 }

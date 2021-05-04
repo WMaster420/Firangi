@@ -19,10 +19,12 @@ public class LessonAdapter extends BaseAdapter {
     List<LessonModel> lessonList;
     LayoutInflater inflater;
     private UserModel instance;
+    Boolean isBasics;
 
-    public LessonAdapter(Context applicationContext, List<LessonModel> lessonList) {
+    public LessonAdapter(Context applicationContext, List<LessonModel> lessonList, Boolean isBasics) {
         this.context = applicationContext;
         this.lessonList = lessonList;
+        this.isBasics = isBasics;
         inflater = (LayoutInflater.from(applicationContext));
         instance = UserModel.getInstance();
     }
@@ -48,13 +50,17 @@ public class LessonAdapter extends BaseAdapter {
         TextView lessonName = view.findViewById(R.id.lesson_container_lesson_name);
         ImageView lessonIcon = view.findViewById(R.id.lesson_container_lesson_icon);
         lessonName.setText(lessonList.get(i).getLessonName());
-        //lessonIcon.setImageResource(R.drawable.ic_baseline_navigate_next_24);
-        if(lessonList.get(i).getsNo() < instance.getCurrentLesson())
-            lessonIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
-        else if(lessonList.get(i).getsNo() == instance.getCurrentLesson())
+        if(isBasics) {
             lessonIcon.setImageResource(R.drawable.ic_baseline_navigate_next_24);
-        else
-            lessonIcon.setImageResource(R.drawable.ic_baseline_lock_24);
+        }
+        else {
+            if (lessonList.get(i).getsNo() < instance.getCurrentLesson())
+                lessonIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            else if (lessonList.get(i).getsNo() == instance.getCurrentLesson())
+                lessonIcon.setImageResource(R.drawable.ic_baseline_navigate_next_24);
+            else
+                lessonIcon.setImageResource(R.drawable.ic_baseline_lock_24);
+        }
 
         return view;
     }

@@ -145,5 +145,24 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
+        forgot_password_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(email_tie.getText().toString().isEmpty()) {
+                    email_til.setError("Enter your Email address!");
+                }
+                else {
+                    mAuth.sendPasswordResetEmail(email_tie.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(SignInActivity.this, "Password Reset Email Sent!",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            }
+        });
+
     }
 }

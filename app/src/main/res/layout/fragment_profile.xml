@@ -128,6 +128,14 @@
                             android:textSize="20sp"
                             android:layout_gravity="start"/>
 
+                        <TextView
+                            android:id="@+id/profile_beginner_score_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0%"
+                            android:textSize="20sp"
+                            android:layout_centerHorizontal="true"/>
+
                         <ImageView
                             android:id="@+id/profile_beginner_check_icon"
                             android:layout_width="wrap_content"
@@ -163,6 +171,14 @@
                             android:text="Intermediate"
                             android:textSize="20sp"
                             android:layout_gravity="start"/>
+
+                        <TextView
+                            android:id="@+id/profile_intermediate_score_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0%"
+                            android:textSize="20sp"
+                            android:layout_centerHorizontal="true"/>
 
                         <ImageView
                             android:id="@+id/profile_intermediate_check_icon"
@@ -200,6 +216,14 @@
                             android:textSize="20sp"
                             android:layout_gravity="start"/>
 
+                        <TextView
+                            android:id="@+id/profile_expert_score_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0%"
+                            android:textSize="20sp"
+                            android:layout_centerHorizontal="true"/>
+
                         <ImageView
                             android:id="@+id/profile_expert_check_icon"
                             android:layout_width="wrap_content"
@@ -213,13 +237,45 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView
+                    android:id="@+id/go_to_basics_tv_static"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Go to Basics?"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"
+                    android:layout_below="@id/expert_card"
+                    android:layout_marginTop="20dp"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/profile_basics_cv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:contentPadding="10dp"
+                    app:cardElevation="4dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardBackgroundColor="#68C17F"
+                    android:layout_below="@id/go_to_basics_tv_static"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Basics"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
                     android:id="@+id/current_course_tv_static"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Current Course"
                     android:textSize="16sp"
                     android:gravity="center_horizontal"
-                    android:layout_below="@id/expert_card"
+                    android:layout_below="@id/profile_basics_cv"
                     android:layout_marginTop="20dp"/>
 
                 <com.google.android.material.card.MaterialCardView
@@ -276,6 +332,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Logout"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/profile_feedback_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:contentPadding="10dp"
+                    app:cardElevation="4dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardBackgroundColor="#A89F9F"
+                    android:layout_below="@id/profile_logout_btn"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:id="@+id/feedback_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feedback"
                         android:textColor="@color/white"
                         android:textSize="20sp"/>
 
